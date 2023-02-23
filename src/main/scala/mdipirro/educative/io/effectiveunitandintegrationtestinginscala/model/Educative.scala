@@ -8,6 +8,29 @@ case class Author(firstName: String, lastName: String):
 
 case class Lesson(title: String)
 
-case class Course(title: String, author: Author, price: BigDecimal, lessons: Seq[Lesson], tags: Seq[String])
+sealed trait Course:
+  val title: String
+  val author: Author
+  val lessons: Seq[Lesson]
+  val tags: Seq[String]
+
+case class FreeCourse(
+                       override val title: String,
+                       override val author: Author,
+                       override val lessons: Seq[Lesson],
+                       override val tags: Seq[String]
+                     ) extends Course
+
+case class PaidCourse(
+                       override val title: String,
+                       override val author: Author,
+                       override val lessons: Seq[Lesson],
+                       override val tags: Seq[String]
+                     ) extends Course:
+  val price: BigDecimal = lessons.size match
+    case n if n < 10 => 20
+    case n if n < 30 => 50
+    case n if n < 50 => 60 + 0.3 * n
+    case n => 100 + 0.5 * n
 
 case class Educative(courses: Seq[Course])
