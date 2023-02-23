@@ -16,3 +16,16 @@ class CourseSpec extends TestSuite:
 
     assert(c.price == 20, s"The expected price of a course with less than 10 lessons is 20, ${c.price} found")
   }
+
+  it `should` "never be grater than 300" in {
+    val rndLessons = Random.nextInt(100) + 400
+
+    val c = PaidCourse(
+      title = "Effective Unit and Integration testing in Scala",
+      author = Author("Matteo", "Di Pirro"),
+      lessons = Seq.fill(rndLessons)(Lesson("A sample lesson")),
+      tags = Seq.empty[String]
+    )
+
+    assert(c.price <= 300, s"The expected maximum price of a course should be 300, ${c.price} found")
+  }
