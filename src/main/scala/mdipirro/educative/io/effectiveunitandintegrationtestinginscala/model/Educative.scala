@@ -1,5 +1,7 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model
 
+import scala.collection.Seq
+
 case class Author(firstName: String, lastName: String):
   require(!firstName.isBlank, "The first name must not be blank")
   require(!lastName.isBlank, "The last name must not be blank")
@@ -27,10 +29,13 @@ case class PaidCourse(
                        override val lessons: Seq[Lesson],
                        override val tags: Seq[String]
                      ) extends Course:
-  val price: BigDecimal = lessons.size match
-    case n if n < 10 => 20
-    case n if n < 30 => 50
-    case n if n < 50 => 60 + 0.3 * n
-    case n => 100 + 0.5 * n
+  val price: BigDecimal =
+    val basePrice: BigDecimal = lessons.size match
+      case n if n < 10 => 20
+      case n if n < 30 => 50
+      case n if n < 50 => 60 + 0.3 * n
+      case n => 100 + 0.5 * n
+
+    basePrice.min(300)
 
 case class Educative(courses: Seq[Course])
