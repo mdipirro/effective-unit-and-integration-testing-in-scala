@@ -1,7 +1,5 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model
 
-import scala.collection.Seq
-
 case class Author(firstName: String, lastName: String):
   require(!firstName.isBlank, "The first name must not be blank")
   require(!lastName.isBlank, "The last name must not be blank")
@@ -38,4 +36,5 @@ case class PaidCourse(
 
     basePrice.min(300)
 
-case class Educative(courses: Seq[Course])
+case class Educative(courses: Seq[Course]):
+  def courseByName(courseName: String): Option[Course] = courses find (_.title == courseName)
