@@ -14,7 +14,12 @@ class CourseSpec extends TestSuite:
       tags = Seq.empty[String]
     )
 
-    assert(c.price == 20, s"The expected price of a course with less than 10 lessons is 20, ${c.price} found")
+    assertResult(
+      expected = 20,
+      clue = s"The expected price of a course with less than 10 lessons is 20, ${c.price} found"
+    ) {
+      c.price
+    }
   }
 
   it `should` "never be grater than 300" in {
