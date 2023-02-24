@@ -12,8 +12,9 @@ class CourseSpec extends TestSuite:
       tags = Seq.empty[String]
     )
 
-    c.title shouldBe "Effective Unit and Integration testing in Scala"
-    c.author shouldBe Author("Matteo", "Di Pirro")
-    c.price should be > BigDecimal(0)
-    c.price should be <= BigDecimal(300)
+    c should have(
+      Symbol("title") ("Effective Unit and Integration testing in Scala"),
+      Symbol("author") (Author("Matteo", "Di Pirro")),
+      Symbol("price") (20)
+    )
   }
