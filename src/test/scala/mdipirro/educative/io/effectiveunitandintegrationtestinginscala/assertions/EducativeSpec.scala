@@ -10,11 +10,11 @@ class EducativeSpec extends TestSuite:
       PaidCourse("Advanced Scala", Author("Mary", "Jane"), Seq.fill(20)(Lesson("A lesson")), Seq.empty[String])
     ))
 
-    val courseOpt = educative.courseByName("Advanced Scala")
-    assert(
-      courseOpt.isDefined &&
-        courseOpt.get.isInstanceOf[PaidCourse] &&
-        courseOpt.get.asInstanceOf[PaidCourse].price == 30
-    )
+    educative.courseByName("Advanced Scala") match
+      case Some(course) => course match
+        case _: FreeCourse => fail("The course is a free one")
+        case p: PaidCourse if p.price != 30 => fail(s"The price of the course is ${p.price}, not 30")
+        case _ => succeed
+      case None => fail("No course with the expected name found")
   }
 
