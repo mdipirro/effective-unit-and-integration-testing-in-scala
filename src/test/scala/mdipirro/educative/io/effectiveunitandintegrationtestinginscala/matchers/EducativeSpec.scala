@@ -2,8 +2,9 @@ package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.matchers
 
 import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.TestSuite
 import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v2.{Author, Educative, FreeCourse, Lesson}
+import org.scalatest.Inspectors
 
-class EducativeSpec extends TestSuite:
+class EducativeSpec extends TestSuite with Inspectors:
 
   private val educative = Educative(Seq(
     FreeCourse("Scala for Beginners", Author("John", "Doe"), Set.empty[Lesson], Set.empty[String]),
@@ -52,5 +53,5 @@ class EducativeSpec extends TestSuite:
   it `should` "filter the courses by tag" in {
     val scalaCoursesTags = educative.filterByTag("Scala") map (_.tags)
 
-    assert(scalaCoursesTags.forall(_ contains "Scala"))
+    forAll(scalaCoursesTags)(_ should contain("Scala"))
   }
