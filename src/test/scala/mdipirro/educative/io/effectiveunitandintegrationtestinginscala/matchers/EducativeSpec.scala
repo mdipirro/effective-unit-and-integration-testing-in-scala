@@ -4,7 +4,7 @@ import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.TestSuite
 import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v2.{Author, Educative, FreeCourse, Lesson}
 import org.scalatest.Inspectors
 
-class EducativeSpec extends TestSuite with Inspectors:
+class EducativeSpec extends TestSuite with Inspectors with EducativeEitherMatchers:
 
   private val educative = Educative(Seq(
     FreeCourse("Scala for Beginners", Author("John", "Doe"), Set.empty[Lesson], Set.empty[String]),
@@ -18,9 +18,7 @@ class EducativeSpec extends TestSuite with Inspectors:
       author = Author("Lucas", "Manny"),
       lessons = Set(Lesson("What's Scala?")),
       tags = Set("Scala")
-    ) match
-      case Left(_) => succeed
-      case Right(_) => fail("Course insertion should have failed")
+    ) should not(beDefined)
   }
 
   it `should` "add the new course if there's no course with the same title" in {
@@ -30,11 +28,10 @@ class EducativeSpec extends TestSuite with Inspectors:
       lessons = Set(Lesson("What's Scala?")),
       tags = Set("Scala")
     )
-    educative `with` newCourse match
-      case Left(msg) => fail(msg)
-      case Right(ed) =>
-        ed.courses should contain(newCourse)
-        ed.courses should have size 4
+
+    val newEducative = educative `with` newCourse
+    newEducative should beDefined
+    newEducative should haveNCourses(4)
   }
 
   it `should` "delete more than one course" in {
