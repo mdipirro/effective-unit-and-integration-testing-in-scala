@@ -53,5 +53,5 @@ class EducativeSpec extends TestSuite with Inspectors:
   it `should` "filter the courses by tag" in {
     val scalaCoursesTags = educative.filterByTag("Scala") map (_.tags)
 
-    forAll(scalaCoursesTags)(_ should contain("Scala"))
+    all(scalaCoursesTags) should contain ("Scala")
   }
