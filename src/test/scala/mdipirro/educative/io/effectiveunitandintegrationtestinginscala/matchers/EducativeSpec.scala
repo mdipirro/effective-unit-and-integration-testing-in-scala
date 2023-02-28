@@ -39,13 +39,14 @@ class EducativeSpec extends TestSuite:
   it `should` "delete more than one course" in {
     val ed = educative without "scala for beginners" without "Scala for Data Analysis" without "functional Kotlin"
 
-    assert(ed.courses.isEmpty)
+    ed.courses shouldBe empty
   }
 
   it `should` "not delete the course if there's no course with the same title" in {
     val ed = educative without "Scala for Absolute Beginners"
 
-    assert(educative.courses.forall(c => ed.courses contains c))
+    ed.courses should not be empty
+    ed.courses should contain theSameElementsAs educative.courses
   }
 
   it `should` "filter the courses by tag" in {
