@@ -29,9 +29,9 @@ class EducativeSpec extends TestSuite with Inspectors with EducativeEitherMatche
       tags = Set("Scala")
     )
 
-    val newEducative = educative `with` newCourse
-    newEducative should beDefined
-    newEducative should haveNCourses(4)
+    def beDefinedAndHaveNCourses(n: Int) = beDefined and haveNCourses(n)
+
+    educative `with` newCourse should beDefinedAndHaveNCourses(4)
   }
 
   it `should` "delete more than one course" in {
