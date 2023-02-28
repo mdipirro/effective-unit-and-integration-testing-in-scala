@@ -1,7 +1,7 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.assertions
 
 import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.TestSuite
-import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.{Author, Educative, FreeCourse, Lesson, PaidCourse}
+import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v1.{Author, Educative, FreeCourse, Lesson, PaidCourse}
 
 class EducativeSpec extends TestSuite:
   "A course fetched by name" `should` "exists and its price should be as expected" in {

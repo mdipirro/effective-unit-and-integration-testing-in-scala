@@ -1,7 +1,7 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.assertions
 
 import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.TestSuite
-import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.{Author, Course, Lesson, PaidCourse}
+import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v1.{Author, Course, Lesson, PaidCourse}
 
 import scala.util.Random
 

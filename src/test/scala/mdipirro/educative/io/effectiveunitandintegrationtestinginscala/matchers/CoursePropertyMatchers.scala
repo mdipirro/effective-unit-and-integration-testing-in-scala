@@ -1,6 +1,6 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.matchers
 
-import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.{Author, Course, PaidCourse}
+import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v1.{Author, Course, PaidCourse}
 import org.scalatest.matchers.{HavePropertyMatchResult, HavePropertyMatcher}
 
 trait CoursePropertyMatchers:

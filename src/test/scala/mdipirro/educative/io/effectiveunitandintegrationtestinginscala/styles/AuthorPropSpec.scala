@@ -1,6 +1,6 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.styles
 
-import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.Author
+import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v1.Author
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.propspec.AnyPropSpec

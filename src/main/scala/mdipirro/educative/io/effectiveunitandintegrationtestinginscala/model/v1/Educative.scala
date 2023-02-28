@@ -1,4 +1,4 @@
-package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model
+package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v1
 
 case class Author(firstName: String, lastName: String):
   require(!firstName.isBlank, "The first name must not be blank")
@@ -13,6 +13,8 @@ sealed trait Course:
   val author: Author
   val lessons: Seq[Lesson]
   val tags: Seq[String]
+
+  lazy val isMini: Boolean = lessons.size < 20
 
 case class FreeCourse(
                        override val title: String,
@@ -37,4 +39,4 @@ case class PaidCourse(
     basePrice.min(300)
 
 case class Educative(courses: Seq[Course]):
-  def courseByName(courseName: String): Option[Course] = courses find (_.title == courseName)
+  def courseByName(courseTitle: String): Option[Course] = courses find (_.title == courseTitle)
