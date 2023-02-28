@@ -32,8 +32,8 @@ class EducativeSpec extends TestSuite:
     educative `with` newCourse match
       case Left(msg) => fail(msg)
       case Right(ed) =>
-        assert(ed.courses contains newCourse)
-        assert(ed.courses.size == 4)
+        ed.courses should contain(newCourse)
+        ed.courses should have size 4
   }
 
   it `should` "delete more than one course" in {
