@@ -1,4 +1,4 @@
-package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v2
+package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v3.mockable
 
 case class Author(firstName: String, lastName: String):
   require(!firstName.isBlank, "The first name must not be blank")
@@ -8,19 +8,32 @@ case class Author(firstName: String, lastName: String):
 
 case class Lesson(title: String)
 
-sealed trait Course:
-  val title: String
+trait Course:
+  def title: String
   val author: Author
-  val lessons: Set[Lesson]
+  def lessons: Set[Lesson]
   val tags: Set[String]
 
   val price: BigDecimal
+
+  def published: Boolean
+
+  require(lessons.nonEmpty || !published, "A course can be published only if it has at least one lesson")
+
+  def copy(
+            title: String = title,
+            author: Author = author,
+            lessons: Set[Lesson] = lessons,
+            tags: Set[String] = tags,
+            published: Boolean = published
+          ): Course
 
 case class FreeCourse(
                        override val title: String,
                        override val author: Author,
                        override val lessons: Set[Lesson],
-                       override val tags: Set[String]
+                       override val tags: Set[String],
+                       override val published: Boolean = false
                      ) extends Course:
   override val price: BigDecimal = 0
 
@@ -28,7 +41,8 @@ case class PaidCourse(
                        override val title: String,
                        override val author: Author,
                        override val lessons: Set[Lesson],
-                       override val tags: Set[String]
+                       override val tags: Set[String],
+                       override val published: Boolean = false
                      ) extends Course:
   override val price: BigDecimal =
     val basePrice: BigDecimal = lessons.size match
@@ -53,3 +67,8 @@ class Educative(val courses: Seq[Course]):
 
   lazy val coursesByAuthor: Map[Author, Seq[String]] =
     courses.groupBy(_.author).view.mapValues(cs => cs.map(_.title)).toMap
+
+  def publishCourse(title: String): Educative = Educative(courses map { c =>
+    if c.title == title && c.lessons.nonEmpty && !c.published then c.copy(published = true)
+    else c
+  })

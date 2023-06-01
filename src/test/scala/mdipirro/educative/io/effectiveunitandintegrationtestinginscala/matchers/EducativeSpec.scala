@@ -1,10 +1,12 @@
 package mdipirro.educative.io.effectiveunitandintegrationtestinginscala.matchers
 
 import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.TestSuite
-import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v2.{Author, Educative, FreeCourse, Lesson}
-import org.scalatest.Inspectors
+import mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v2.{Author, Educative, FreeCourse, Lesson, PaidCourse}
+import org.scalatest.{Inside, Inspectors, OptionValues, PartialFunctionValues}
 
-class EducativeSpec extends TestSuite with Inspectors with EducativeEitherMatchers:
+class EducativeSpec extends TestSuite with Inspectors with Inside with OptionValues with PartialFunctionValues:
+
+  import EducativeEitherMatchers.*
 
   private val educative = Educative(Seq(
     FreeCourse("Scala for Beginners", Author("John", "Doe"), Set.empty[Lesson], Set.empty[String]),
@@ -51,4 +53,19 @@ class EducativeSpec extends TestSuite with Inspectors with EducativeEitherMatche
     val scalaCoursesTags = educative.filterByTag("Scala") map (_.tags)
 
     all(scalaCoursesTags) should contain ("Scala")
+  }
+
+  it `should` "return a valid course, if it exists" in {
+    val c = educative.courseByName("Scala for Beginners").value
+
+    c.title shouldBe "Scala for Beginners"
+    c.author.firstName shouldBe "John"
+    c.author.lastName shouldBe "Doe"
+    pending
+
+    fail()
+  }
+
+  it `should` "group the courses by author" in {
+    educative.coursesByAuthor.valueAt(Author("Mary", "Jane")) should have size 2
   }

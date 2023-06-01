@@ -1,0 +1,5 @@
+version: "3.8"
+services:
+  localstack:
+    image: localstack/localstack:2.0.2
+    restart: always

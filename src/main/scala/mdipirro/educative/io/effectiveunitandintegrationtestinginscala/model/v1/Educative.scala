@@ -38,5 +38,5 @@ case class PaidCourse(
 
     basePrice.min(300)
 
-case class Educative(courses: Seq[Course]):
+class Educative(val courses: Seq[Course]):
   def courseByName(courseTitle: String): Option[Course] = courses find (_.title == courseTitle)

@@ -19,3 +19,5 @@ trait EducativeEitherMatchers:
       rawNegatedFailureMessage = s"$ee contains a valid Educative instance",
       IndexedSeq.empty
     )
+
+object EducativeEitherMatchers extends EducativeEitherMatchers
