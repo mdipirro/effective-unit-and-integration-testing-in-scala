@@ -17,3 +17,5 @@ ThisBuild / turbo := true
 ThisBuild / watchBeforeCommand := Watch.clearScreen
 ThisBuild / watchTriggeredMessage := Watch.clearScreenOnTrigger
 ThisBuild / watchForceTriggerOnAnyChange := true
+
+updateOptions := updateOptions.value.withCachedResolution(true)
