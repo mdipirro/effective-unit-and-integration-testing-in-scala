@@ -32,7 +32,7 @@ class CompilationSpec extends TestSuite:
         |""".stripMargin)
   }
 
-  "An course" `should` "not type-check if an Int is used as a first name for an Author" in {
+  "A course" `should` "not type-check if an Int is used as a first name for an Author" in {
     assertTypeError(
       """val a = mdipirro.educative.io.effectiveunitandintegrationtestinginscala.model.v2.Author(1, "Jane")"""
     )
